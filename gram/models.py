@@ -28,11 +28,13 @@ class Profile(models.Model):
         new_bio = new_bio_object.bio
         return new_bio
 
+
+
 class Comments(models.Model):
     comment = models.CharField(max_length=100,blank=True,primary_key=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     # image = models.ForeignKey(Image,on_delete=models.CASCADE)
-    date_posted = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     
     @classmethod
     def get_comments(cls,id):
