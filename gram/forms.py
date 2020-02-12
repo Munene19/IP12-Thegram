@@ -3,13 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from . models import *
 
-Class UserRegisterForm(UserCreationForm):
+class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
     class Meta
         model = User
         fieds = ["username", "email", "password1", "password2"]
-        
+
 class ImageUploadForm(forms.ModelForm):
     class Meta:
         model = Image
@@ -24,4 +24,20 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         exclude = ['user','image','timestamp']
+
+class UserUpdateForm(Forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta: 
+        model = User
+        fields = ["image"]
     
+ class ProfileUpdateForm(Forms.ModelForm):
+    class Meta: 
+        model = Image
+        fields = ["image"]
+
+class UploadForm(forms.ModelForm)
+    class Meta:
+        model = Image
+        fields = ["image","image_caption"]

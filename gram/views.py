@@ -9,3 +9,9 @@ def signup(request):
 def index(request):
     context = {}
     return render(request, 'registration/login.html', context)
+
+@login_required()
+def edit_profile(request):
+    if request.method == "POST"
+    user_form = UserUpdateForm(request.POST, instance=request.user)
+    profile_form = 

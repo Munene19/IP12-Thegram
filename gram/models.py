@@ -60,7 +60,7 @@ class Profile(models.Model):
 
 
 class Image(models.Model): #posts
-    image = models.ImageField()
+    image = models.ImageField(upload_to="media")
     image_caption = models.TextField(max_length=40)
     user= models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     likes = models.IntegerField(default=0, null=True)
@@ -75,7 +75,7 @@ class Image(models.Model): #posts
 
     def __str__(self):
         return("{} profile").format(self.user.username)
-               
+
     @classmethod    
     def update_caption(cls,id,new_caption):
         cls.objects.filter(pk = id ).update(image_caption = new_caption)
