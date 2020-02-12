@@ -1,0 +1,23 @@
+<nav>       
+    <ul>
+        
+      <li><img src="/static/thgram.jpg" alt="thegram" id="logo">The Gram<br><a class="navbar-brand" href="{% url 'index' %}"></a></li>
+      <br>
+      <li><a href="{{profile.user}}">My account</a></li>
+      <li><a href="#news">Logout</a></li>
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link waves-light" href="{%url 'new-image'%}">Post image</a>
+        </li>
+        {% endif %}
+      <li style="float:right"><div class="collapse navbar-collapse" id="search">
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div></li>
+    </ul>
+
+
+
+</nav>
