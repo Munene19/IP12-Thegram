@@ -42,12 +42,6 @@ class Profile(models.Model):
         return new_bio
 
 
-
-class Comments(models.Model):
-    comment = models.CharField(max_length=100,blank=True,primary_key=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    # image = models.ForeignKey(Image,on_delete=models.CASCADE)
-    dateposted = models.DateTimeField(auto_now_add=True)
     
     @classmethod
     def get_comments(cls,id):
@@ -70,7 +64,7 @@ class Image(models.Model): #posts
     image_caption = models.TextField(max_length=40)
     user= models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     likes = models.IntegerField(default=0, null=True)
-    comments = models.ForeignKey(Comments, on_delete=models.CASCADE,null=True)
+    comments = models.ForeignKey('Comments', on_delete=models.CASCADE,null=True)
     dateposted = models.DateTimeField(auto_now=True)
     
     def save_image(self):
@@ -78,7 +72,10 @@ class Image(models.Model): #posts
         
     def delete_image(self):
         self.delete()
-        
+
+    def __str__(self):
+        return("{} profile").format(self.user.username)
+               
     @classmethod    
     def update_caption(cls,id,new_caption):
         cls.objects.filter(pk = id ).update(image_caption = new_caption)
@@ -100,6 +97,7 @@ class Like(models.Model):
     user = models.ForeignKey(User)
     class Meta:
         unique_together = ("post", "user")
+
     def __str__(self):
         return 'Like: ' + self.user.username + ' ' + self.post.title
 
@@ -116,3 +114,12 @@ class Like(models.Model):
 class Followers(models.Model):
     user = models.CharField(max_length=20,default='')
     Follower = models.CharField(max_length=20,default='')
+
+
+
+class Comments(models.Model):
+    user = models.ForeignKey(User)
+    comment = models.CharField(max_length=100)
+    date_posted = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.comment
