@@ -8,4 +8,4 @@ def signup(request):
 
 def index(request):
     context = {}
-    return render(request, 'index.html', context)
+    return render(request, 'registration/login.html', context)
