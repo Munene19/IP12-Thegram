@@ -137,6 +137,7 @@ class Like(models.Model):
     
     # def __str__(self):     
     #     return self.image_name
+    
 class Followers(models.Model):
     user = models.CharField(max_length=20,default='')
     Follower = models.CharField(max_length=20,default='')
@@ -158,6 +159,7 @@ class Comments(models.Model):
     def delete_comment(self):
         self.delete()
     
+
     @classmethod
     def get_comment(cls):
         comments = cls.objects.all()
