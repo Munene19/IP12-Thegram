@@ -102,21 +102,21 @@ class Image(models.Model): #posts
         verbose_name_plural = 'Images'
 
 
-    # @classmethod    
-    # def update_caption(cls,id,new_caption):
-    #     cls.objects.filter(pk = id ).update(image_caption = new_caption)
-    #     new_caption_object = cls.objects.get(image_caption=new_caption)
-    #     new_caption = new_caption_object.image_caption
-    #     return new_caption
+    @classmethod    
+    def update_caption(cls,id,new_caption):
+        cls.objects.filter(pk = id ).update(image_caption = new_caption)
+        new_caption_object = cls.objects.get(image_caption=new_caption)
+        new_caption = new_caption_object.image_caption
+        return new_caption
     
-    # @classmethod
-    # def get_single_photo(cls,id):
-    #     image = cls.objects.get(pk=id)
-    #     return image
+    @classmethod
+    def get_single_photo(cls,id):
+        image = cls.objects.get(pk=id)
+        return image
 
-    # @classmethod
-    # def update_image(cls,current_value,new_value):
-    #     fetched.object = Image.objects.filter(author=current_value)
+    @classmethod
+    def update_image(cls,current_value,new_value):
+        fetched.object = Image.objects.filter(author=current_value)
 
 class Like(models.Model):
     post = models.ForeignKey('Image')
@@ -135,9 +135,7 @@ class Like(models.Model):
     def save_profile(self):
         self.save()
     
-    # def __str__(self):     
-    #     return self.image_name
-    
+   
 class Followers(models.Model):
     user = models.CharField(max_length=20,default='')
     Follower = models.CharField(max_length=20,default='')
