@@ -1,4 +1,4 @@
-{%extends "registration/base.html"%}
+{%extends "gram/base.html"%}
 {% load bootstrap3 %}
 
 
@@ -18,8 +18,8 @@
         <div class="panel-body">
 
 
-          <form action="{%url 'new-image'%}" method="post" enctype="multipart/form-data">
-            {%csrf_token%}
+          <form action="{%url 'upload'%}"  method="post" enctype="multipart/form-data">
+            {% csrf_token %}
 
             {% bootstrap_form form%}
             <input type="submit" class="btn btn-outline-secondary btn-lg font-weight-bold" value="Post">

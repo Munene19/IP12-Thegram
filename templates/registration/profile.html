@@ -1,4 +1,4 @@
-{%extends "registration/base.html"%}
+{%extends "gram/base.html"%}
 {% load bootstrap3 %}
 
 {% block content %}
@@ -19,7 +19,11 @@
         <h4> <span class="font-weight-bold"> Username:</span> {{user.username}} </h4>
         <p> <span class="font-weight-bold"> Email:</span> {{user.email}} </p>
         <p> <span class="font-weight-bold"> Bio:</span> {{ user.profile.bio}} </p>
-        <p><strong>0 Followers</strong> &nbsp; ~ &nbsp; <strong> Following 0</strong></p>
+        <div class="profile-data d-flex">
+            <p>0 posts</p>
+            <p class="px-3">0 follower</p>
+            <p>0 following</p>
+          </div>
         <button class="btn btn-md btn-outline-secondary font-weight-bold" data-toggle="modal" data-target="#profile">
           Edit Profile</button>
       </div>
@@ -62,7 +66,7 @@
           <hr class="">
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% bootstrap_form form%}
+            
 
             <div class="form-group">
               <button type="submit"

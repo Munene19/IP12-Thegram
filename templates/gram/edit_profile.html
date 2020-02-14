@@ -1,4 +1,4 @@
-{% extends "base.html"%}
+{%extends "gram/base.html"%}
 {% block content%}
 {% load crispy_forms_tags %}
 <div class="container">
@@ -18,12 +18,12 @@
       </div>
     </div>
   </div>
-  <h3>Update Profile</h3>
+  <h3>Edit Profile</h3>
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{u_form | crispy}}
     {{p_form | crispy}}
-      <button class="btn btn-info" type="submit">Update</button>
+      <button class="btn btn-primary" type="submit">Update</button>
   </form>
 </div>
 {% endblock %}

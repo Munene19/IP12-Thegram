@@ -31,16 +31,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'tinymce',
-    'bootstrap3',
-    'gram',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'tinymce',
+    'bootstrap3',
+    'gram',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,3 +133,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = ""
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+LOGIN_REDIRECT_URL = 'profile'
+LOGIN_URL = "login"

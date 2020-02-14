@@ -1,21 +1,24 @@
-from django.conf.urls import url
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf.urls import url
+from . import views as home_view
 from django.conf import settings
-from . import views
 from django.conf.urls.static import static
 
 urlpatterns = [
     
-    url(r'^', views.index, name='index'),
-    url(r'^/sign-up/', views.signup),
-    url(r'^$', views.home, name= 'home'),
-    url(r'^search/', views.search_images, name='search_results'),
-    url(r'^image/(\d+)', views.get_image, name='image_results'),
-    url(r'^new/image$', views.new_image, name='new-image'),
-    url(r'^accounts/profile/$', views.user_profiles, name='profile'),
-    # url(r'^like/(\d+)', views.like_image, name='like_image'),
+    url(r'^$',home_view.index,name='index'),
+    url(r'^home/$',home_view.home,name='home'),
+    url(r'^image/$', home_view.image_upload,name='upload'),
+    url(r'^profile/$', home_view.profile_info,name='profile'),
+    url(r'^edit/$',home_view.profile_edit,name='edit'),
+    url(r'^new_comment/(\d+)/$' ,home_view.add_comment,name='newComment'),
+    url(r'^comment/(\d+)/$' ,home_view.comments,name='comments'),
+    url(r'^likes/(\d+)/$' , home_view.like_images, name='likes'),
+    url(r'^user/$',home_view.search_user,name='search_user')
 ]
-
 
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+    

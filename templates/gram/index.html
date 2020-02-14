@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{%extends "gram/base.html"%}
 {% block content %}
 <div class="container">
 <div class="row">
@@ -9,7 +9,7 @@
       <div class="card mt-2 pb-2 mb-4 white">
         <!-- Card header -->
         <div class="card-footer pb-1 pt-1 text-dark font-weight-bold white">
-          <img src="{{ image_item.Author.profile.photo.url }}" alt="" class="rounded-circle img-fluid mr-1"
+          <img src="{{ image_item.User.profile.photo.url }}" alt="" class="rounded-circle img-fluid mr-1"
             style="width: 50px;">
           {{image_item.User}}
 
@@ -20,7 +20,7 @@
           {% if image_item.image_file %}
           <img class="card-img-top pl-1 pr-1" src="{{image_item.image_file.url}}" alt="{{ image_item.image_name }}">
           {% else %}
-          <img class="card-img-top" src="https://i.pinimg.com/236x/b5/17/b0/b517b0140cbb0fb2dbf2510aeb8f88e9.jpg"
+          <img class="card-img-top" src=".jpg"
             alt="{{ image_item.image_name }}">
           {% endif %}
           <a href="/image/{{image_item.id}}">
@@ -60,11 +60,11 @@
         <div class="card-footer text-muted text-center white">
           <form action="{%url 'home' %}" method="post" enctype="multipart/form-data">
 
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="form-row">
               <div class="col-lg-10">
 
-                {{ form.comment|as_crispy_field }}
+                {{ form.comment }}
 
         {% endfor %}
 </div>

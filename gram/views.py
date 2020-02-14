@@ -1,41 +1,118 @@
-from django.shortcuts import render, redirect
-from .models import Profile
-from .forms import *
-
-def signup(request):
-    context = {}
-    return render(request, 'sign-up.html', context)
+from django.shortcuts import render,redirect
+from . forms import ImageUploadForm,ImageProfileForm,CommentForm
+from .models import *
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegistration
+from django.contrib import messages
 
 def index(request):
-    context = {}
-    return render(request, 'registration/login.html', context)
-
-@login_required()
-def edit_profile(request):
-    if request.method == "POST"
-        user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if user_form. is valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success (request, "Profile updated!")
-            return redirect ("edit_profile")
-        else:
-            user_form = UserUpdateForm(request.POST, instance=request.user)
-            profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        context = {
-            "user_form": user_form,
-            "profile_form": profile_form
-        }
-        return render(request, "edit_profile.html", context)
-
-@login_required()
-def upload(request):
-    if request.method == "POST"
-    upload_form = upload_form(request.POST, request.FILES)
-    if upload_form is_valid():
-        upload_from.save()
-        return redirect("")
+    if request.method == "POST":
+        form = UserRegistration(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            messages.success(request, f"Account for {username} has been successfully created")
+            return redirect('login')
     else:
-        upload_form=uploadform()
-    return render (request, "upload.html", {"upload_form":upload_form})
+        form = UserRegistration(request.POST)
+
+    return render(request, "registration/sign-up.html", {"form": form})
+
+@login_required(login_url='/accounts/login/')
+
+def home(request):
+    images = Image.objects.all()
+    return render(request, 'gram/index.html',{"images":images})
+
+def image_upload(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+            image.save()
+        return redirect('home')
+
+    else:
+        form = ImageUploadForm()
+        return render(request,'gram/upload.html', {"form":form})
+    
+def profile_info(request):
+    
+    current_user=request.user
+    profile_info = Profile.objects.filter(user=current_user).first()
+    posts =  request.user.image_set.all()
+    
+    
+    return render(request,'registration/profile.html',{"images":posts,"profile":profile_info,"current_user":current_user})
+        
+def profile_edit(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+            image.save()
+        return redirect('profile')
+
+    else:
+        form = ImageProfileForm()
+        return render(request,'gram/edit_profile.html',{"form":form})
+    
+def add_comment(request,id):
+
+    current_user = request.user
+    image = Image.get_single_photo(id=id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        print(form)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.image_id = id
+            comment.save()
+        return redirect('home')
+
+    else:
+        form = CommentForm()
+        return render(request,'gram/new_comment.html',{"form":form,"image":image})  
+    
+def comments(request,id):
+    comments = Comments.get_comments(id)
+    number = len(comments   )
+    
+    return render(request,'socioapp/comments.html',{"comments":comments,"number":number})        
+
+@login_required (login_url='/accounts/register/') 
+         
+def like_images(request,id):
+    image =  Image.get_single_photo(id)
+    user = request.user
+    user_id = user.id
+    
+    if user.is_authenticated:
+        uplike = image.votes.up(user_id)
+        image.likes = image.votes.count()
+        image.save()
+        
+    return redirect('home')
+    
+def search_user(request):
+    
+    if 'search_user' in request.GET and request.GET["search_user"]:
+
+        search_term = request.GET.get("search_user")
+        searched_user = User.objects.filter(username__icontains=search_term)
+        message = f"{search_term}"  
+        return render(request, 'gram/search.html', {"message": message, "users": searched_user})
+
+    else:
+        message = "You haven't searched for any term "
+        return render(request, 'gram/search.html', {"message": message})
+    
+   
+    
+    
