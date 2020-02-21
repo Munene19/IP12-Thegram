@@ -1,40 +1,24 @@
-# Instagram
+### Project Title
+Instagram clone
 
-<p align = "center">
-    <b>Project Author: Mike munene</b>  
-</p>
+### Project Rating App
+This is a instagram-clone web app. This project is built with Python 3, Django and PSQL Datatbase.
 
-### Description
-This is a clone of the popular photo-blogging website Instagram.
+Project Description
+Users can register a new account, log in it, upload pictures and like/comment on other posts.
 
-***
-#### The app specifications 
-This website will:
+### Setup/Installation Requirements
+Internet connection.
+#### Python 3, Django installation.
+Install Requirements using pip install -r requirements.txt
+To start python3.6 manage.py runserver
+Go to you browser and writr localhost:8000 or 127.0.0.1:8000
 
-    Allow users to read register and login.
-    Allows users to post,view and comment on posted photos. 
-    Display submitted photos.
-    Follow and infollow differnt users.
- 
+#### Author information
+Mike munene
 
-#### Technologies
-* Python 3.6
-* Django (in Python)
-* Bootstrap (for styling)
-* Postgresql (the database)
+#### Contact Information
+Munenexv@gmail.com
 
-View the source code at [GitHub](https://github.com/kevahere/instagram)
-
-#### Installation/Setup
-You need to have Python 3.6 installed to run this program.
-
-`$ git clone <this-repository>`<br />
-
-Create a virtual enironment and activate it.
-
-`$ sudo apt-get install python3.6-venv`<br />
-`$ source virtual/bin/acivate` and `(virtual)$ deactivate` is to deactivate the environment.
-
-In the virtual environment:
-
-`(virtual)$ pip install -r requirements.txt`<br />
+#### License and Copyright Information
+This app is licensed under the terms of MIT.
