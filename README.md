@@ -1,7 +1,7 @@
 # Instagram
 
 <p align = "center">
-    <b>Project Author: Kevin Ahere</b>  
+    <b>Project Author: Mike munene</b>  
 </p>
 
 ### Description
